@@ -20,6 +20,11 @@
     font-size: 2em;
 }
 
+.keys {
+    width: 5%;
+    height: 2em;
+}
+
 .green {
     color: green;
 }

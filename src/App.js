@@ -102,7 +102,7 @@ function App() {
 
     function keys(arr) {
         return (
-            arr.map(item => <Button value={item}
+            arr.map(item => <Button value={item} className="keys"
                 style={bigArr.some(x => x.includes(item) && (x.indexOf(item) === word.split('').indexOf(item))) ? correct :
                     word.split('').includes(item) && bigArr.flat().includes(item) ? somewhere :
                         bigArr.flat().includes(item) ? notSel : reg} onClick={(e) => handleClick(e.target.value)}></Button>)
@@ -157,8 +157,8 @@ function App() {
                 <button onClick={handleSubmit}>Enter</button>
                 {keys(third)}
           {over ?
-              <button value="x" style={{ background: 'grey' }} disabled>x</button> :
-              <button value="x" onClick={handleBack} style={{ background: 'grey' }} >x</button>}
+              <button className="keys" value="x" style={{ background: 'grey' }} disabled>x</button> :
+              <button className="keys" value="x" onClick={handleBack} style={{ background: 'grey' }} >x</button>}
             </div>
             </window>
   );
