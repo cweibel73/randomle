@@ -2,9 +2,26 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.words {
+  display: flex;
+  justify-content: center;
+}
+
+.square {
+    border: 1px solid black;
+    width: 4%;
+    font-size: 2em;
+}
+
+.bigSq {
+    border: 1px solid black;
+    width: 10%;
+    height: 2em;
+    font-size: 2em;
+}
+
+.green {
+    color: green;
 }
 
 @media (prefers-reduced-motion: no-preference) {
