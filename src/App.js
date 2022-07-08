@@ -95,12 +95,12 @@ function App() {
         if (arrOne.length <= arrTwo.length) {
             return somewhere
         } else {
-            for (let i = 0; i < arrTwo.length; i++) {
+            for (let i = 0; i < arr.length; i++) {
                 if (arr[i] === letter) {
                     arr3.push(i)
                 }
             }
-           return arr3.includes(ind)?somewhere:notSel
+           return arr3.slice(0,arrTwo.length).includes(ind)?somewhere:notSel
         }
     }
 
