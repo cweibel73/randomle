@@ -87,15 +87,30 @@ function App() {
         }   
     }
 
+    function orange(arr, ind, arr2) {
+        let letter = arr[ind]
+        let arrOne = arr.filter((item,i) => item === letter&&arr[i]!==arr2[i])
+        let arrTwo = arr2.filter((item,i) => item === letter&&arr[i]!==arr2[i])
+        let arr3 = []
+        if (arrOne.length <= arrTwo.length) {
+            return somewhere
+        } else {
+            for (let i = 0; i < arrTwo.length; i++) {
+                if (arr[i] === letter) {
+                    arr3.push(i)
+                }
+            }
+           return arr3.includes(ind)?somewhere:notSel
+        }
+    }
+
     function looper(arr,num) {
         return (
             <div className="words">{arr.map((item, i) =>
                 <Letter style={counter < num ? reg :
                     word[i] === item ? correct :
-                        word[i] !== item && word.split('').includes(item)&&
-                        (word.split('').filter(x => x === item).length === arr.filter(x => x === item).length ||
-                            arr.indexOf(item) === i && (arr.slice(i+1).indexOf(item) !== word.split('').slice(i+1).indexOf(item)))?
-                            somewhere : notSel}>{item}</Letter>)}
+                        word.split('').includes(item)?
+                            orange(arr,i,word.split('')) : notSel}>{item}</Letter>)}
             </div>
              ) 
     }
