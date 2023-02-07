@@ -16,31 +16,30 @@ const reg = { color: 'black', background: 'white' }
 const correct = { color: 'white', background: 'green' }
 const somewhere = { color: 'white', background: 'orange' }
 
-
 function App() {
     const [over, setOver] = useState(false)
     const [win, setWin] = useState(false)
-    const [wins, setWins] = useState(0)
-    const [losses,setLosses] = useState(0)
+    const [wins, setWins] = useState(parseInt(localStorage.getItem("wins"))||0)
+    const [losses,setLosses] = useState(parseInt(localStorage.getItem("losses"))||0)
     const [wordArr0, setWordArr0] = useState([...' '.repeat(word.length)])
     const [wordArr1, setWordArr1] = useState([...' '.repeat(word.length)])
     const [wordArr2, setWordArr2] = useState([...' '.repeat(word.length)])
     const [wordArr3, setWordArr3] = useState([...' '.repeat(word.length)])
     const [wordArr4, setWordArr4] = useState([...' '.repeat(word.length)])
     const [wordArr5, setWordArr5] = useState([...' '.repeat(word.length)])
-    const [ones, setOnes] = useState(0)
-    const [twos, setTwos] = useState(0)
-    const [threes, setThrees] = useState(0)
-    const [fours, setFours] = useState(0)
-    const [fives, setFives] = useState(0)
-    const [sixes, setSixes] = useState(0)
+    const [ones, setOnes] = useState(parseInt(localStorage.getItem("ones"))||0)
+    const [twos, setTwos] = useState(parseInt(localStorage.getItem("twos"))||0)
+    const [threes, setThrees] = useState(parseInt(localStorage.getItem("threes"))||0)
+    const [fours, setFours] = useState(parseInt(localStorage.getItem("fours"))||0)
+    const [fives, setFives] = useState(parseInt(localStorage.getItem("fives"))||0)
+    const [sixes, setSixes] = useState(parseInt(localStorage.getItem("sixes"))||0)
     const [index, setIndex] = useState(0)
     const [result, setResult] = useState("")
     const [current, setCurrent] = useState([...' '.repeat(word.length)])
     const sel = [setWordArr0, setWordArr1, setWordArr2, setWordArr3, setWordArr4, setWordArr5]
     const arrs = [wordArr0, wordArr1, wordArr2, wordArr3, wordArr4, wordArr5]
     const numArr = [null, setOnes, setTwos, setThrees, setFours, setFives, setSixes]
-   
+    
     function handleClick(e) {     
         if (index < word.length) {
             clicked(arrs[counter],e,counter)
@@ -75,7 +74,8 @@ function App() {
                  .then(res => res.json())
                  .then(data => !data[0] ? alert("That is not in the word list") :
                      data[0].word.toUpperCase() === word ? (bigArr.push(current),counter++,setResult("You solved it!!"),
-                         setOver(true),setWin(true),setWins(prev => prev+1), numArr[counter](prev => prev+1)) :
+                         setOver(true), setWin(true), setWins(prev => prev + 1), numArr[counter](prev => prev + 1),
+                         localStorage.setItem("wins", wins+1),statSetter(counter)):
                          data[0].word.length < word.length ? alert('That word is too short') :
                          (bigArr.push(current), counter++, setIndex(0)))
 
@@ -83,7 +83,8 @@ function App() {
         
         setCurrent([...' '.repeat(word.length)])
         if (counter === 5 && !win) {
-            setLosses(prev => prev+1)
+            setLosses(prev => prev + 1)
+            localStorage.setItem("losses", losses+1)
         }   
     }
 
@@ -124,6 +125,29 @@ function App() {
              ) 
     }
 
+    function statSetter(num) {
+        switch (num) {
+            case 1:
+                localStorage.setItem("ones", ones+1)
+                break
+            case 2:
+                localStorage.setItem("twos", twos+1)
+                break
+            case 3:
+                localStorage.setItem("threes", threes+1)
+                break
+            case 4:
+                localStorage.setItem("fours", fours+1)
+                break
+            case 5:
+                localStorage.setItem("fives", fives+1)
+                break
+            case 6:
+                localStorage.setItem("sixes", sixes+1)
+                break
+        }
+    }
+
     function replay() {
         word = words[Math.floor(Math.random() * words.length)].toUpperCase()
         setOver(false)
@@ -138,8 +162,10 @@ function App() {
         setWordArr2([...' '.repeat(word.length)])
         setWordArr3([...' '.repeat(word.length)])
         setWordArr4([...' '.repeat(word.length)])
-        setWordArr5([...' '.repeat(word.length)])    
+        setWordArr5([...' '.repeat(word.length)])
+        
     }
+
     
     return (
         <window onKeyDown={(e) => e.key === 'Enter' ? handleSubmit(e) :
